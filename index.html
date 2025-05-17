@@ -1,35 +1,355 @@
-<!-- TODO 1: Create the HTML Boilerplate -->
-
-<!-- TODO 2: Add Your previous projects' HTML into the public folder -->
-
-<!-- TODO 3: Take screenshots of your project previews and add the images to the images folder -->
-
-<!-- TODO 4: Add titles/subtitles etc. -->
-
-<!-- TODO 5: Add a link to the project pages -->
-
-<!-- TODO 6: Add images to show the project previews
-HINT for TODO 6: You can use the height attribute set to 200 to make the image smaller:
-https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attr-height -->
-
-<!-- TODO 7: Add the Contact Me and About Me page links -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>
+    <title>Aloo Paratha Party Invitation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f3e9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border-radius: 10px 10px 0 0;
+            color: white;
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .paratha-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-fallback {
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .details {
+            padding: 20px;
+            background-color: #fff9f2;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        
+        .guest-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .guest {
+            background-color: #f0f8ff;
+            padding: 10px 15px;
+            border-radius: 20px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+        
+        .countdown {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+        }
+        
+        .rsvp-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .rsvp-button:hover {
+            background-color: #ff5252;
+            transform: scale(1.05);
+        }
+        
+        .location {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .map {
+            height: 200px;
+            background-color: #eee;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #666;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #333;
+            color: white;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .floating-paratha {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%23f9a825" stroke="%23e65100" stroke-width="2"/><path d="M30,40 Q50,30 70,40 Q80,60 70,80 Q50,90 30,80 Q20,60 30,40" fill="%23ffd54f" stroke="%23e65100" stroke-width="1"/></svg>');
+            background-size: contain;
+            animation: float 5s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 100;
+            display: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .music-control {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            z-index: 10;
+        }
+        
+        .music-control i {
+            font-size: 20px;
+            color: #333;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <h1>My Name is Muhammad Ammar</h1>
-    <h2>I am App and Web developer</h2>
-    <hr/>
-    <h3><a href="./public/topThreeMovies.html">Top Three Movies List</a></h3>
-    <img src="./assets/images/movie-ranking.png" alt="movie-ranking" height="200"/>
-    <h3><a href="./public/birth-invite.html">Birth Day Project</a></h3>
-    <img src="./assets/images/birthday-invite.png" alt="birth-invite" height="200"/>
-    <hr>
-    <a href="./public/about.html">About</a>
-    <a href="./public/contact.html">Conatct</a>
+    <div class="container">
+        <header>
+            <button class="music-control" id="musicControl" title="Toggle Music">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <h1>Aloo Paratha & Cold Drink Party!</h1>
+            <p>You're Cordially Invited</p>
+        </header>
+        
+        <div class="image-container">
+            <img src="https://www.whiskaffair.com/wp-content/uploads/2020/08/Aloo-Paratha-2-3.jpg" 
+                 alt="Delicious Aloo Paratha" 
+                 class="paratha-image"
+                 onerror="this.style.display='none'; document.getElementById('imageFallback').style.display='block'">
+            <div class="image-fallback" id="imageFallback" style="display: none;">
+                <h3>Aloo Paratha Coming Soon!</h3>
+                <p>Imagine delicious, golden-brown parathas filled with spiced potatoes</p>
+            </div>
+        </div>
+        
+        <div class="details">
+            <p>As Salam O Alaikum!</p>
+            <p>Dear <strong>Shabaz, Arsim, Wajhat Khan, & Abdullah</strong>,</p>
+            <p>You are invited to an <strong>Aloo Paratha and Cold Drink Party</strong> tomorrow evening at <strong>6:00 PM</strong> at <strong>Quetta Hotel</strong>.</p>
+            <p>I will be really glad to see you at the party tomorrow evening.</p>
+        </div>
+        
+        <div class="guest-list">
+            <div class="guest">Shabaz</div>
+            <div class="guest">Arsim</div>
+            <div class="guest">Wajhat Khan</div>
+            <div class="guest">Abdullah</div>
+        </div>
+        
+        <div class="countdown" id="countdown">
+            Party starts in: <span id="timer">24:00:00</span>
+        </div>
+        
+        <button class="rsvp-button" id="rsvpButton">RSVP Now</button>
+        
+        <div class="location">
+            <h3>Location: Quetta Hotel</h3>
+            <div class="map">
+                [Map of Quetta Hotel would appear here]
+            </div>
+        </div>
+        
+        <footer>
+            <p>Don't miss this delicious evening! See you there!</p>
+        </footer>
+    </div>
+    
+    <div class="floating-paratha" id="floatingParatha"></div>
+    
+    <!-- Audio element for background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        // Countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date();
+            tomorrow.setDate(now.getDate() + 1);
+            tomorrow.setHours(18, 0, 0, 0); // 6:00 PM
+            
+            const diff = tomorrow - now;
+            
+            if (diff <= 0) {
+                document.getElementById('timer').textContent = "Party time!";
+                return;
+            }
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('timer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // RSVP button interaction
+        document.getElementById('rsvpButton').addEventListener('click', function() {
+            alert("Shukriya! We're excited you're coming to the Aloo Paratha Party!\n\nSee you at Quetta Hotel tomorrow at 6:00 PM!");
+            this.textContent = "You're Coming! 🎉";
+            this.style.backgroundColor = "#4caf50";
+        });
+        
+        // Floating paratha animation
+        document.addEventListener('mousemove', function(e) {
+            const paratha = document.getElementById('floatingParatha');
+            paratha.style.display = 'block';
+            paratha.style.left = (e.pageX - 25) + 'px';
+            paratha.style.top = (e.pageY - 25) + 'px';
+            
+            // Random rotation for fun
+            paratha.style.transform = `rotate(${Math.random() * 360}deg)`;
+        });
+        
+        // Change guest colors on hover
+        const guests = document.querySelectorAll('.guest');
+        const colors = ['#FFD166', '#06D6A0', '#118AB2', '#EF476F', '#073B4C'];
+        
+        guests.forEach(guest => {
+            guest.addEventListener('mouseover', function() {
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                this.style.backgroundColor = randomColor;
+            });
+            
+            guest.addEventListener('mouseout', function() {
+                this.style.backgroundColor = '#f0f8ff';
+            });
+        });
+        
+        // Check if image loaded successfully
+        window.addEventListener('load', function() {
+            const img = document.querySelector('.paratha-image');
+            if (img.naturalWidth === 0) {
+                img.style.display = 'none';
+                document.getElementById('imageFallback').style.display = 'block';
+            }
+        });
+        
+        // Music control
+        const music = document.getElementById('backgroundMusic');
+        const musicControl = document.getElementById('musicControl');
+        
+        // Try to play music automatically (may be blocked by browser)
+        document.addEventListener('DOMContentLoaded', function() {
+            music.volume = 0.3; // Set lower volume
+            const playPromise = music.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                    console.log("Autoplay prevented:", error);
+                });
+            }
+        });
+        
+        // Toggle music on button click
+        musicControl.addEventListener('click', function() {
+            if (music.paused) {
+                music.play();
+                this.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                music.pause();
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+    </script>
 </body>
 </html>
