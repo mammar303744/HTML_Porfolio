@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+file:///C:/Users/WinnerCoder/Desktop/index.html<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -181,6 +181,16 @@
             color: #333;
         }
         
+        .today-badge {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
         @media (max-width: 600px) {
             .container {
                 margin: 10px;
@@ -202,6 +212,7 @@
             </button>
             <h1>Aloo Paratha & Cold Drink Party!</h1>
             <p>You're Cordially Invited</p>
+            <div class="today-badge">TODAY'S EVENT!</div>
         </header>
         
         <div class="image-container">
@@ -217,20 +228,20 @@
         
         <div class="details">
             <p>As Salam O Alaikum!</p>
-            <p>Dear <strong>Shahbaz, Arsim, Wajhat Khan, & Abdullah</strong>,</p>
-            <p>You are invited to an <strong>Aloo Paratha and Cold Drink Party</strong> tomorrow evening at <strong>6:00 PM</strong> at <strong>Quetta Hotel</strong>.</p>
-            <p>I will be really glad to see you at the party tomorrow evening.</p>
+            <p>Dear <strong>Shabaz, Arsim, Wajhat Khan, & Abdullah</strong>,</p>
+            <p>You are invited to an <strong>Aloo Paratha and Cold Drink Party</strong> <strong>TONIGHT</strong> at <strong id="partyTime">7:00 PM</strong> at <strong>Quetta Hotel</strong>.</p>
+            <p>I will be really glad to see you at the party tonight!</p>
         </div>
         
         <div class="guest-list">
-            <div class="guest">Shahbaz</div>
+            <div class="guest">Shabaz</div>
             <div class="guest">Arsim</div>
             <div class="guest">Wajhat Khan</div>
             <div class="guest">Abdullah</div>
         </div>
         
         <div class="countdown" id="countdown">
-            Party starts in: <span id="timer">24:00:00</span>
+            Party starts in: <span id="timer">--:--:--</span>
         </div>
         
         <button class="rsvp-button" id="rsvpButton">RSVP Now</button>
@@ -243,27 +254,35 @@
         </div>
         
         <footer>
-            <p>Don't miss this delicious evening! See you there!</p>
+            <p>Don't miss this delicious evening! See you tonight!</p>
         </footer>
     </div>
     
     <div class="floating-paratha" id="floatingParatha"></div>
     
-    <!-- Audio element for background music -->
-    <audio id="backgroundMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    
     <script>
+        // Set party time to tonight at 7:00 PM
+        function setPartyTime() {
+            const now = new Date();
+            const partyTime = new Date();
+            
+            // Set to 7:00 PM today
+            partyTime.setHours(19, 0, 0, 0);
+            
+            // If it's already past 7 PM, set to 7 PM tomorrow (for countdown purposes)
+            if (now > partyTime) {
+                partyTime.setDate(partyTime.getDate() + 1);
+            }
+            
+            return partyTime;
+        }
+
         // Countdown timer
         function updateCountdown() {
             const now = new Date();
-            const tomorrow = new Date();
-            tomorrow.setDate(now.getDate() + 1);
-            tomorrow.setHours(18, 0, 0, 0); // 6:00 PM
+            const partyTime = setPartyTime();
             
-            const diff = tomorrow - now;
+            const diff = partyTime - now;
             
             if (diff <= 0) {
                 document.getElementById('timer').textContent = "Party time!";
@@ -283,7 +302,7 @@
         
         // RSVP button interaction
         document.getElementById('rsvpButton').addEventListener('click', function() {
-            alert("Shukriya! We're excited you're coming to the Aloo Paratha Party!\n\nSee you at Quetta Hotel tomorrow at 6:00 PM!");
+            alert("Shukriya! We're excited you're coming to the Aloo Paratha Party tonight!\n\nSee you at Quetta Hotel at 7:00 PM!");
             this.textContent = "You're Coming! 🎉";
             this.style.backgroundColor = "#4caf50";
         });
@@ -323,24 +342,28 @@
             }
         });
         
-        // Music control
-        const music = document.getElementById('backgroundMusic');
+        // Music control for local system
+        const music = new Audio();
         const musicControl = document.getElementById('musicControl');
         
-        // Try to play music automatically (may be blocked by browser)
+        // Configure music settings
+        music.loop = true;
+        music.volume = 0.3;
+        
+        // Try to play music automatically (may work locally)
         document.addEventListener('DOMContentLoaded', function() {
-            music.volume = 0.3; // Set lower volume
-            const playPromise = music.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
+            music.src = "party-music.mp3"; // Local file in same directory
+            music.play()
+                .then(() => {
+                    musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+                })
+                .catch(error => {
                     musicControl.innerHTML = '<i class="fas fa-volume-mute"></i>';
-                    console.log("Autoplay prevented:", error);
+                    console.log("Autoplay prevented - will play on first interaction");
                 });
-            }
         });
         
-        // Toggle music on button click
+        // Toggle music on control button click
         musicControl.addEventListener('click', function() {
             if (music.paused) {
                 music.play();
@@ -350,6 +373,16 @@
                 this.innerHTML = '<i class="fas fa-volume-mute"></i>';
             }
         });
+        
+        // Also try to play when user interacts with page
+        document.addEventListener('click', function firstInteraction() {
+            if (music.paused) {
+                music.play()
+                    .then(() => {
+                        musicControl.innerHTML = '<i class="fas fa-volume-up"></i>';
+                    });
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
